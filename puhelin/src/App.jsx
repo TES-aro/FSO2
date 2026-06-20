@@ -1,12 +1,11 @@
-import { useState } from 'react'
+import { useState , useEffect} from 'react'
 import Entries from "./components/Entries.jsx"
 import Add from "./components/Add.jsx"
 import Filter from "./components/Filter.jsx"
+import {getAll} from './services/data.js'
 
 const App = () => {
-  const [persons, setPersons] = useState([
-    { name: 'Arto Hellas', number: "050 122345"}
-  ]) 
+  const [persons, setPersons] = useState([])
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [filter, setFilter] = useState('')
@@ -17,7 +16,12 @@ const App = () => {
 	  	return person.name.toLowerCase().includes(filter.toLowerCase());
   	})
 
-
+	useEffect(() => {
+		getAll().then(response => {
+			setPersons(response.data)
+			console.log(response)
+		})
+	}, [])
 
 
 	return (
@@ -26,7 +30,7 @@ const App = () => {
 			<Filter filter={filter} setFilter={setFilter} />
 			<Add name={newName} number={newNumber} setName={setNewName}
 				setNumber={setNewNumber} persons={persons} setPersons={setPersons} />
-			<Entries entries={showNames} />
+			<Entries entries={showNames} setEntries={setPersons}/>
 		</div>
 	)
 }
