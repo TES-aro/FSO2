@@ -1,5 +1,5 @@
 import {create, update} from '../services/data.js'
-const Add = ({name, setName, number, setNumber, persons, setPersons}) => {
+const Add = ({name, setName, number, setNumber, persons, setPersons, notify}) => {
 	const nameChange = (e) => {
 		setName(e.target.value)
 	}
@@ -26,6 +26,10 @@ const Add = ({name, setName, number, setNumber, persons, setPersons}) => {
 					}
 				})
 				setPersons(newPersons);
+				notify(`updated ${name}'s information`, false)
+			}).catch((error) => {
+					console.log(error)
+					notify(`issue with modifying ${name}'s entry`, true)
 			})
 		}	else {
 			//console.log("shouldn't be here!")
@@ -34,6 +38,10 @@ const Add = ({name, setName, number, setNumber, persons, setPersons}) => {
 				const newPerson = {name: data.name, number: data.number, id: data.id};
 				const newPersons = persons.concat(newPerson);
 				setPersons(newPersons);
+				notify(`added ${name} to phonebook`, false)
+			}).catch((error) => {
+				console.log(error)
+				notify(`issue with adding ${name}`, true)
 			})
 		}
 		setName("");

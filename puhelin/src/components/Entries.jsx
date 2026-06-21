@@ -1,6 +1,6 @@
 import Entry from "./Entry.jsx";
 
-const Entries = ({entries, setEntries}) => {
+const Entries = ({entries, setEntries, notify}) => {
 	const removeEntry = (id) => {
 		const newEntries = entries.filter(entry => {
 			return entry.id !== id
@@ -17,7 +17,8 @@ const Entries = ({entries, setEntries}) => {
 			</thead>
 			<tbody>
 			{entries.map(entry => {
-				return <Entry key={entry.name} entry={entry} delEntry={removeEntry} />
+				return <Entry key={entry.name} entry={entry}
+					delEntry={removeEntry} notify={notify}/>
 			})}
 			</tbody>
 		</table>
