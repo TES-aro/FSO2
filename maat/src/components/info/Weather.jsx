@@ -24,13 +24,14 @@ const Weather = ({info}) => {
 		)
 	}
 
-	const imgURL = `https://openweathermap.org/payload/api/media/file/${weather.icon}.png`
-
+	const imgURL = `https://openweathermap.org/payload/api/media/file/${weather.weather[0].icon}.png`
+	const temperature = (weather.main.temp - 274.15).toFixed(2)
 	return(
 		<>
 			<h2> weather in {info.capital[0]} </h2>
-			<p> {weather.description} </p>
-			<img src={imgURL} alt={weather.main} /> 
+			<p> {weather.weather[0].description} </p>
+			<p> temperature: {temperature} </p>
+			<img src={imgURL} alt={weather.weather[0].main} /> 
 		</>
 	)
 }
