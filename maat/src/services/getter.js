@@ -9,7 +9,7 @@ const list = () => {
 }
 
 const specific = (name) => {
-	return axios.get(`https://studies.cs.helsinki.fi/restcountries/api/${name}`)
+	return axios.get(`https://studies.cs.helsinki.fi/restcountries/api/name/${name}`)
 		.catch((e) => {
 		console.log(`something went wrong with fetching info for ${name}`)
 		console.error(e)
